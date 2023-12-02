@@ -33,10 +33,21 @@ if __name__ == '__main__':
     credentials = dc.read_db_creds(name)
     engine = dc.init_db_engine(credentials)
     engine.connect()
-    print(engine) #can remove
+    #print(engine) #can remove
     dbt = dc.list_db_tables(engine)
-    print(dbt) #can remove
+    #print(dbt) #can remove
     with engine.connect() as connection: #need to make dyanimc like sourcing from dbt[1] instead of named column
         result = pd.read_sql_table(dbt[1], engine)
-        print(result)
+        dict_result = dict(result.head(3))
+        #print(dict_result)
+        #print(type(dict_result))
         #print(result.head(10))
+        #print(type(result))
+        #print(result.head(10))
+
+    df = pd.DataFrame([dict_result])
+    print(type(df))
+df.head(10)
+
+
+    
