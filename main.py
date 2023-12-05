@@ -23,5 +23,7 @@ print(table_names)
 
 column = 1
 database = de.read_rds_table(table_names,column,engine)
+#database is ready to be cleaned.
 
-database.head(3)
+
+database.tail()
