@@ -33,6 +33,6 @@ def upload_to_dim_users():
         engine          = dc.init_db_engine(credentials)
         
         #UPLOAD
-        dc.upload_to_db(database,'dim_users',engine)
+        dc.upload_to_db(database, 'dim_users', engine)
 
 upload_to_dim_users()

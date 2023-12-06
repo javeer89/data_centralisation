@@ -18,8 +18,8 @@ class DataCleaning:
     def __init__(self) -> None:
         pass
   
-    def drop_index(self, database, column_name):
-        database.drop(column = [column_name])
+    def drop_index(self, database):
+        database = database.drop(columns = "index")
 
     #adjust dates to format into correct form
     def clean_date(self, database, column_name):
@@ -38,7 +38,7 @@ class DataCleaning:
     #CLEAN USER
     def clean_user_data(self,database):
         #1  - drop index
-        database = self.drop_index(database,"index")
+        database = self.drop_index(database)
 
         #2  - removes Na and Null values
         #database = self.clean_na_null(database, 'date_of_birth')
@@ -54,7 +54,7 @@ class DataCleaning:
         #database = self.clean_country_code(database, 'country_code')
 
 
-        return database
+        
 
 
 
