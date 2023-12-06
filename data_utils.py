@@ -27,8 +27,8 @@ class   DataConnector:
         inspector = inspect(engine)
         return inspector.get_table_names()
 
-    def upload_to_db(self, database, name, engine):
-        database.to_sql(name, engine, if_exists='replace')
+    def upload_to_db(self, database, sql_name, engine):
+        database.to_sql(sql_name, engine, if_exists='replace')
 
 
 if __name__ == '__main__':
