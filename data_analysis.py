@@ -61,3 +61,8 @@ database.duplicated()#.sum()
 
 database.drop(columns = "index")
 #we want to keep this one.
+
+#%%
+import pandas as pd
+from main import database
+database.info()

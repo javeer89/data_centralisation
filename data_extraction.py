@@ -19,18 +19,18 @@ class DataExtractor:
     def  __init__(self) -> None:
         pass
     
-    #read database 
+    #Read DATABASE 
     def read_rds_table(self, table_names, column, engine):
         column = 1
         database = pd.read_sql_table(table_names[column], engine)
         return database
     
-    #retreive card details
+    #Retreive CARD DETAILS
     def retreive_pdf_data (self, link):
         return pd.concat(tabula.read_pdf(link, pages='all'))
 
 
-    #STORE DATA
+    #Retrieve STORE DATA
     '''API Variables as Methods'''
     def API_key(self):
         return {'x-api-key':'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}  
@@ -59,6 +59,15 @@ class DataExtractor:
             return pd.concat(store_data)
 
 
+    #Retrieve PRODUCT DETAILS
+    def extract_from_s3(self, BUCKET_NAME, OBJECT_NAME, FILE_NAME ):
+            s3 = boto3.client("s3")
+            s3.download_file(BUCKET_NAME, OBJECT_NAME, FILE_NAME )  
+            df = pd.read_csv('jav-products.csv')
+
+            return df
+
+        
 
 if __name__ == '__main__':
     
