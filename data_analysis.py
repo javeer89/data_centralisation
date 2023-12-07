@@ -1,3 +1,10 @@
+'''
+Files being used to help determine some causes and issues in the data.
+Will review and resume cleaning at a later date.
+
+For now, creating my functionalities are my priority as I have been slow in this project.
+'''
+
 #%%
 import pandas as pd
 from main import database
