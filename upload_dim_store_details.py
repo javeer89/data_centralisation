@@ -14,7 +14,7 @@ def upload_to_dim_store_details():
  
         sql_name        = "dim_store_details"
         #connect and create database
-        database        = de.retrieve_store_data
+        database        = de.retrieve_store_data()
 
         #clean database
         #card_details = dcl.clean_card_details(card_details)

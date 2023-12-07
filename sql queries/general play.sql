@@ -1,2 +1,2 @@
 SELECT *
-FROM dim_card_details LIMIT 100
+FROM dim_store_details LIMIT 100
