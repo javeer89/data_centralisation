@@ -20,8 +20,7 @@ from upload_dim_users import upload_to_dim_users
 
 
 
-#GIT generated token via developer settings.
-MY_GENERATED_TOKEN =    "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"
+
 
 #extraction queries to obtain table names
 dc              = DataConnector()
