@@ -31,9 +31,7 @@ class DataCleaning:
 
     def clean_country_code(self, database, column_name):
         database[column_name]
-
-
-    
+ 
 
     #CLEAN USER
     def clean_user_data(self,database):
@@ -48,13 +46,16 @@ class DataCleaning:
         #self.database = self.clean_date(database,'date_of_birth')
         #database = self.clean_date(database,'join_date')
 
-
         #check phone numbers and check country code
         #database = self.clean_phone_numbers(database, 'phone_number')
         #database = self.clean_country_code(database, 'country_code')
 
 
-        
+
+    #CLEAN CARD DETAILS
+    def clean_card_details(self, card_details):
+
+        return card_details        
 
 
 
