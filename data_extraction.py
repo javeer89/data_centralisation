@@ -21,7 +21,7 @@ class DataExtractor:
     
     #Read DATABASE 
     def read_rds_table(self, table_names, column, engine):
-        column = 1
+        #column = 1
         database = pd.read_sql_table(table_names[column], engine)
         return database
     
@@ -59,15 +59,23 @@ class DataExtractor:
             return pd.concat(store_data)
 
 
+
+
     #Retrieve PRODUCT DETAILS
     def extract_from_s3(self, BUCKET_NAME, OBJECT_NAME, FILE_NAME ):
             s3 = boto3.client("s3")
             s3.download_file(BUCKET_NAME, OBJECT_NAME, FILE_NAME )  
-            df = pd.read_csv('jav-products.csv')
+            df = pd.read_csv(FILE_NAME)
 
             return df
 
-        
+    def extract_from_s3_LINK(self, LINK):
+        if LINK is not None:
+                response = requests.get(LINK)
+                data = pd.DataFrame(response.json())
+        return data
+    
+
 
 if __name__ == '__main__':
     
