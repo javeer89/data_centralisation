@@ -31,6 +31,7 @@ def upload_to_dim_users():
         #cleanig code is mashing up the upload. figure it out later.
 
         #connect to local server
+        sql_name        = "dim_users"
         local_name      = "db_creds_local.yaml" 
         credentials     = dc.read_db_creds(local_name)
         engine          = dc.init_db_engine(credentials)
