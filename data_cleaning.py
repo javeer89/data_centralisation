@@ -1,62 +1,74 @@
 #%%
 import  pandas          as pd
 import  numpy           as np
-import  phonenumbers
+#import  phonenumbers
 
 #data cleaning tools
-class DataCleaning:
-    '''clean data from each of the data sources'''
-    ''' from data_analysis.py it has been determined that there are: 
-            - no na values
-            - no null values.
-            - no duplicates
+class   DataCleaning:
 
-        actions to be undertaken, are as follows:
-            - remove index column as there are mistakes in it. use native index.   
-    '''
-    
-    def __init__(self) -> None:
-        pass
-  
-    def drop_index(self, database):
-        database = database.drop(columns = "index")
+            def __init__(self) -> None:
+                pass
+            '''  
+            def drop_index(self, database):
+                database = database.drop(columns = "index")
 
-    #adjust dates to format into correct form
-    def clean_date(self, database, column_name):
-        database[column_name] = pd.to_datetime(database[column_name], errors='ignore', format= '%Y %b %d')
+            #adjust dates to format into correct form
+            def clean_date(self, database, column_name):
+                database[column_name] = pd.to_datetime(database[column_name], errors='ignore', format= '%Y %b %d')
 
-    #clean phone numbers and make them into a standardised format    
-    def clean_phone_numbers(self, database, column_name):
-        database[column_name]
+            #clean phone numbers and make them into a standardised format    
+            def clean_phone_numbers(self, database, column_name):
+                database[column_name]
 
-    def clean_country_code(self, database, column_name):
-        database[column_name]
- 
+            def clean_country_code(self, database, column_name):
+                database[column_name]
+        
+            '''
+            #T3
+            #CLEAN USER
+            def clean_user_data(self,database):
+                    database                        = database.drop(columns="index")
+                    database["date_of_birth"]       = pd.to_datetime(database["date_of_birth"], "coerce", format = "%Y-%m-%d")
+                    database["join_date"]           = pd.to_datetime(database["join_date"], "coerce", format = "%Y-%m-%d")
 
-    #CLEAN USER
-    def clean_user_data(self,database):
-        #1  - drop index
-        database = self.drop_index(database)
+                    return database
 
-        #2  - removes Na and Null values
-        #database = self.clean_na_null(database, 'date_of_birth')
-        #database = self.clean_na_null(database, 'join_date')
+            #T4
+            #CLEAN CARD DETAILS
+            def clean_card_details(self, database):
 
-        #3  - check dates in date_of_birth and join_date
-        #self.database = self.clean_date(database,'date_of_birth')
-        #database = self.clean_date(database,'join_date')
+                    return database
+            
+            #T5
+            #CLEAN STORE DETAILS
+            def clean_store_data (self, database):
+                
+                return database
 
-        #check phone numbers and check country code
-        #database = self.clean_phone_numbers(database, 'phone_number')
-        #database = self.clean_country_code(database, 'country_code')
+            #T6
+            #CLEAN PRODUCTS DATA
+            def clean_products_data (self, database):
+                
+                return database
+
+            #T7
+            #CLEAN ORDERS DATA
+            def clean_orders_data (self, database):
+                    database = database.drop(columns= ["level_0", "index", "1"] )
+                    database = database.dropna()
+
+                    return database
+
+            #T8
+            #CLEAN EVENT DATES
+            def clean_event_dates (self, database):
+                    database["month"]       = pd.to_numeric(database["month"], "coerce", "integer", dtype_backend="numpy_nullable")
+                    database["year"]        = pd.to_numeric(database["year"], "coerce", "integer", dtype_backend="numpy_nullable")
+                    database["day"]         = pd.to_numeric(database["day"], "coerce", "integer", dtype_backend="numpy_nullable")
+                    database["timestamp"]   = pd.to_datetime(database["timestamp"], "coerce", format = "%H:%M:%S").dt.time
+                    database                = database.dropna()
+                    return database
 
 
-
-    #CLEAN CARD DETAILS
-    def clean_card_details(self, card_details):
-
-        return card_details        
-
-
-
-
+if __name__ == '__main__':
+    pass
