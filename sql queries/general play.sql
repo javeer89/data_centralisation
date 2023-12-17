@@ -1,2 +1,2 @@
 SELECT *
-FROM dim_products LIMIT 100
+FROM orders_table LIMIT 100;
