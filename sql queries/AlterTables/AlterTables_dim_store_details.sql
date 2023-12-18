@@ -1,4 +1,6 @@
-ALTER TABLE dim_store_details 
+ALTER TABLE dim_store_details
+	ADD PRIMARY KEY (store_code),
+
 	ALTER COLUMN longitude			TYPE FLOAT    		USING longitude::double precision,	
 	ALTER COLUMN locality 			TYPE varchar (255),
 	ALTER COLUMN store_code 		TYPE varchar (12),

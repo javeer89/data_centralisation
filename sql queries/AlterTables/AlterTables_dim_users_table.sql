@@ -1,4 +1,6 @@
 ALTER TABLE dim_users
+	ADD PRIMARY KEY (user_uuid),
+
 	ALTER COLUMN first_name			TYPE varchar (225),	
 	ALTER COLUMN last_name	 		TYPE varchar (225),
 	ALTER COLUMN country_code 		TYPE varchar (2),

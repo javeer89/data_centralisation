@@ -141,6 +141,7 @@ class   DataCleaning:
             def clean_products_data (self, database):
                     database                        = database.rename(columns={"uuid":"product-uuid"})
                     database                        = database.rename(columns={"removed":"still_available"})
+                    database["still_available"]     = database["still_available"].str.replace("Still_avaliable","still_available")
                     category_list                   = ["homeware", "toys-and-games", "food-and-drink", "pets", "sports-and-leisure", "health-and-beauty", "diy"]
                     database["category_in_list"]    = database["category"].isin(category_list)
                     database                        = database.drop(database[database["category_in_list"] == False].index)
@@ -221,7 +222,7 @@ class   DataCleaning:
             #T7
             #CLEAN ORDERS DATA
             def clean_orders_data (self, database):
-                    database        = database.drop(columns= ["level_0", "index", "1", "first_name", "last_name"] )
+                    database        = database.drop(columns= ["level_0", "index", "1"] )
                     database        = database.reset_index()
                     database        = database.drop(columns= "index" ) 
 
