@@ -1,7 +1,22 @@
-select dim_date_times.year,dim_date_times.month, round(sum(orders_table.product_quantity*dim_products.product_price)) as revenue
-from orders_table
-join dim_date_times on  orders_table.date_uuid = dim_date_times.date_uuid
-join dim_products on  orders_table.product_code = dim_products.product_code
-join dim_store_details on orders_table.store_code = dim_store_details.store_code
-group by 	dim_date_times.month,dim_date_times.year
-ORDER BY    sum(orders_table.product_quantity*dim_products.product_price)  DESC;
+SELECT
+		ROUND (CAST
+			   	(sum(product_quantity * dp."product_price_(£)") as numeric),2)
+		AS total_sales,
+		dt.year,
+		dt.month
+
+FROM	orders_table AS ot
+INNER JOIN
+		dim_date_times AS dt
+		ON ot.date_uuid =  dt.date_uuid
+INNER JOIN
+		dim_products AS dp
+		ON ot.product_code = dp.product_code
+
+GROUP BY
+		dt.month,dt.year
+ORDER BY
+		total_sales DESC
+LIMIT	10
+;
+

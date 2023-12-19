@@ -1,10 +1,31 @@
-select  event_dates.year, 		  
-    concat('"hours": ',EXTRACT(hours FROM  avg(event_dates.time_diff)),' ',
-		   '"minutes": ',EXTRACT(minutes FROM  avg(event_dates.time_diff)),' ',		  
-		   '"seconds": ',round(EXTRACT(seconds FROM  avg(event_dates.time_diff)),2),' '		  
---		   '"milliseconds": ',round(mod(EXTRACT(seconds FROM  avg(dim_date_times.time_diff))*1000,1000)),' '		  
-		  ) as actual_time_taken
-		 		  
- from event_dates
-group by event_dates.year
-order by avg(event_dates.time_diff) desc
+SELECT	
+		sub_table.year,
+		concat(	'"  hours": ',					EXTRACT(HOUR 			FROM (AVG(difference))),		', ',
+				'"  minutes": ',				EXTRACT(MINUTE 			FROM (AVG(difference))),		', ',		  
+				'"  seconds": ',		round(	EXTRACT(SECOND 			FROM (AVG(difference))),2),	', ',
+				'"  milliseconds": ',	round(	EXTRACT(MILLISECONDS 	FROM (AVG(difference))),2),	', '
+		)
+		as actual_time_taken
+--		AVG(difference) as diff
+FROM	(
+		SELECT
+			year, month, day,
+			timestamp,
+			(
+				CAST(
+					LEAD ((CONCAT(year,'/', month,'/', day, ' ', timestamp)),1)
+					OVER ( ORDER BY year ASC, month ASC, day ASC, timestamp) AS timestamp )
+			)-(
+				CAST(CONCAT(year,'/', month,'/', day, ' ', timestamp) AS timestamp)
+			)
+			as difference
+		FROM dim_date_times
+		) sub_table
+
+GROUP BY sub_table.year
+ORDER BY actual_time_taken DESC
+;
+/*
+IF YOU WANT TO GET SIMILAR DISPLAY AS ON THE COURSE PROJECT PAGE, YOU CAN TRUNCATE THE RESULTS AND LIMIT THEM.
+ALSO, 2022 VALUES ARE DIFFERENT. POSSIBLY DUE TO UPDATED ENTRIES.
+*/

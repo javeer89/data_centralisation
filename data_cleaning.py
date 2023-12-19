@@ -141,6 +141,7 @@ class   DataCleaning:
             def clean_products_data (self, database):
                     database                        = database.rename(columns={"uuid":"product-uuid"})
                     database                        = database.rename(columns={"removed":"still_available"})
+                    database["still_available"]     = database["still_available"].str.replace("Still_avaliable","still_available")
                     category_list                   = ["homeware", "toys-and-games", "food-and-drink", "pets", "sports-and-leisure", "health-and-beauty", "diy"]
                     database["category_in_list"]    = database["category"].isin(category_list)
                     database                        = database.drop(database[database["category_in_list"] == False].index)
@@ -184,19 +185,19 @@ class   DataCleaning:
                     database["weight"]                  = database["combined"]
                     database                            = database.drop(columns=["combined"])
                     database["weight"]                  = pd.to_numeric(database["weight"], "coerce", "float", dtype_backend="numpy_nullable")
-                    database                            = database.rename(columns={"weight":"weight_(kg)"})
+                    database                            = database.rename(columns={"weight":"weight_kg"})
 
                     #REMOVE CURRENCY £ FROM Product_price
                     database["product_price"]           = database["product_price"].str.replace("£","")
-                    database                            = database.rename(columns={"product_price":"product_price_(£)"})
+                    database                            = database.rename(columns={"product_price":"product_price_£"})
 
 
                     #WEIGHT CLASS
                     #Defining class conditions as columns > Results in boolean
-                    database["light"]                   = database["weight_(kg)"] < 2
-                    database["mid-sized"]               = (database["weight_(kg)"] >= 2) & (database["weight_(kg)"] < 40)
-                    database["heavy"]                   = (database["weight_(kg)"] >= 40) & (database["weight_(kg)"] < 140)
-                    database["truck"]                   = database["weight_(kg)"] >= 40
+                    database["light"]                   = database["weight_kg"] < 2
+                    database["mid-sized"]               = (database["weight_kg"] >= 2) & (database["weight_kg"] < 40)
+                    database["heavy"]                   = (database["weight_kg"] >= 40) & (database["weight_kg"] < 140)
+                    database["truck"]                   = database["weight_kg"] >= 40
 
                     #Creating Weight Class and inputting human-readable values
                     database.loc[database["light"],     "weight_class"] = "Light"
@@ -221,7 +222,7 @@ class   DataCleaning:
             #T7
             #CLEAN ORDERS DATA
             def clean_orders_data (self, database):
-                    database        = database.drop(columns= ["level_0", "index", "1", "first_name", "last_name"] )
+                    database        = database.drop(columns= ["level_0", "index", "1"] )
                     database        = database.reset_index()
                     database        = database.drop(columns= "index" ) 
 
