@@ -1,10 +1,19 @@
-select round(count(orders_table.date_uuid)) as sales	, 
-dim_store_details.store_type, 
-dim_store_details.country_code
-from orders_table
-join dim_date_times on  orders_table.date_uuid = dim_date_times.date_uuid
-join dim_products on  orders_table.product_code = dim_products.product_code
-join dim_store_details on orders_table.store_code = dim_store_details.store_code
-where dim_store_details.country_code = 'DE'
-group by 	dim_store_details.store_type,dim_store_details.country_code
---ORDER BY    sum(orders_table.product_quantity*dim_products.product_price)  DESC;
+SELECT
+		ROUND (CAST (SUM(pd."product_price_(£)" * ot.product_quantity) as numeric), 2)	as total_sales,
+		store_type,
+		country_code
+
+FROM 	dim_store_details as sd
+INNER JOIN
+		orders_table as ot
+		USING (store_code)
+INNER JOIN
+		dim_products as pd
+		USING (product_code)
+
+WHERE 	country_code LIKE 'DE'
+
+GROUP BY
+		store_type, country_code
+ORDER BY
+		total_sales ASC

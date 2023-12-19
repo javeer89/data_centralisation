@@ -18,6 +18,8 @@ ALTER TABLE orders_table
 	ADD --CONSTRAINT		FK_Orders_Product
 		FOREIGN KEY		(product_code)
 			REFERENCES 		dim_products (product_code);
+
+
 	
 SELECT *
 FROM orders_table;

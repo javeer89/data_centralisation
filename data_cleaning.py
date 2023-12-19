@@ -185,19 +185,19 @@ class   DataCleaning:
                     database["weight"]                  = database["combined"]
                     database                            = database.drop(columns=["combined"])
                     database["weight"]                  = pd.to_numeric(database["weight"], "coerce", "float", dtype_backend="numpy_nullable")
-                    database                            = database.rename(columns={"weight":"weight_(kg)"})
+                    database                            = database.rename(columns={"weight":"weight_kg"})
 
                     #REMOVE CURRENCY £ FROM Product_price
                     database["product_price"]           = database["product_price"].str.replace("£","")
-                    database                            = database.rename(columns={"product_price":"product_price_(£)"})
+                    database                            = database.rename(columns={"product_price":"product_price_£"})
 
 
                     #WEIGHT CLASS
                     #Defining class conditions as columns > Results in boolean
-                    database["light"]                   = database["weight_(kg)"] < 2
-                    database["mid-sized"]               = (database["weight_(kg)"] >= 2) & (database["weight_(kg)"] < 40)
-                    database["heavy"]                   = (database["weight_(kg)"] >= 40) & (database["weight_(kg)"] < 140)
-                    database["truck"]                   = database["weight_(kg)"] >= 40
+                    database["light"]                   = database["weight_kg"] < 2
+                    database["mid-sized"]               = (database["weight_kg"] >= 2) & (database["weight_kg"] < 40)
+                    database["heavy"]                   = (database["weight_kg"] >= 40) & (database["weight_kg"] < 140)
+                    database["truck"]                   = database["weight_kg"] >= 40
 
                     #Creating Weight Class and inputting human-readable values
                     database.loc[database["light"],     "weight_class"] = "Light"

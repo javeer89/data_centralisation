@@ -1,1 +1,6 @@
-select locality, count (*) from dim_store_details group by locality	ORDER BY COUNT(*) DESC;
+SELECT locality,
+	COUNT (*)
+	FROM dim_store_details
+	GROUP BY locality
+	ORDER BY count DESC
+	LIMIT 7
